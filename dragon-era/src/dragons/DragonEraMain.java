@@ -15,6 +15,7 @@ public class DragonEraMain {
         int numberOfDragons = Integer.parseInt(in.nextLine());
         for (int i = 0; i < numberOfDragons; i++) {
             Dragon dragon = new Dragon("Dragon_" + (i + 1));
+            dragon.setOrphan(true);
             int numberOfEggs = Integer.parseInt(in.nextLine());
             for (int j = 0; j < numberOfEggs; j++) {
                 Egg egg = new Egg(dragon);

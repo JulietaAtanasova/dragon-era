@@ -3,6 +3,7 @@ package dragons;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import dragons.years.DragonYear;
 
@@ -89,32 +90,35 @@ public class DragonEra {
     @Override
     public String toString() {
         String result = "";
+        List<Dragon> orphans = this.getDragons().stream().filter(d -> d.isOrphan() == true)
+                .collect(Collectors.toList());
         List<Dragon> printedDragons = new ArrayList<Dragon>();
-        for (Dragon dragon : this.getDragons()) {
+        for (Dragon dragon : orphans) {
             result += addDragonsAndChilds(dragon, 0, printedDragons);
         }
-        
+
+        result = result.substring(0, result.length() - 1);
         return result;
     }
 
-    private String addDragonsAndChilds(Dragon dragon, int repeatTimes, List<Dragon> printedDragons){
+    private String addDragonsAndChilds(Dragon dragon, int repeatTimes, List<Dragon> printedDragons) {
         String result = "";
         String prefix = "  ";
-        if(printedDragons.contains(dragon)){
+        if (printedDragons.contains(dragon)) {
             return result;
         }
-        
-        if(dragon.isAlive()){
+
+        if (dragon.isAlive()) {
+            result += String.join("", Collections.nCopies(repeatTimes, prefix));
             result += dragon + "\n";
             printedDragons.add(dragon);
         }
 
-        if(!dragon.getChildren().isEmpty()){
-            repeatTimes++;
-            for (Dragon child : dragon.getChildren()) {
-                result += String.join("", Collections.nCopies(repeatTimes, prefix)) + addDragonsAndChilds(child, repeatTimes, printedDragons);
-            }
+        repeatTimes++;
+        for (Dragon child : dragon.getChildren()) {
+            result += addDragonsAndChilds(child, repeatTimes, printedDragons);
         }
+
         return result;
     }
 }

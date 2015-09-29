@@ -13,6 +13,7 @@ public class Dragon {
     private String name;
     private int age;
     private boolean layEggs;
+    private boolean orphan;
     private boolean alive;
     private List<Egg> eggs;
     private List<Dragon> children;
@@ -23,6 +24,7 @@ public class Dragon {
         this.setName(name);
         this.setAge(0);
         this.setLayEggs(false);
+        this.setOrphan(false);
         this.setAlive(true);
         this.setEggs(new ArrayList<Egg>());
         this.setChildren(new ArrayList<Dragon>());
@@ -74,6 +76,14 @@ public class Dragon {
 
     private void setAlive(boolean alive) {
         this.alive = alive;
+    }
+
+    public boolean isOrphan() {
+        return this.orphan;
+    }
+
+    public void setOrphan(boolean orphan) {
+        this.orphan = orphan;
     }
 
     public boolean canLayEggs(){
