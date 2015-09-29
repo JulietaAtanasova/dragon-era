@@ -1,6 +1,6 @@
 package dragons.years;
 
-public enum YearType {
+public enum DragonYearType {
     NORMAL,
     BAD,
     GOOD

@@ -1,14 +1,14 @@
 package dragons.years;
 
-public class YearFactory {
-    public Year create(YearType type) {
+public class DragonYearFactory {
+    public DragonYear create(DragonYearType type) {
         switch (type) {
         case NORMAL:
-            return new Year(1);
+            return new DragonYear(1);
         case BAD:
-            return new Year(0);
+            return new DragonYear(0);
         case GOOD:
-            return new Year(2);
+            return new DragonYear(2);
         default:
             throw new UnsupportedOperationException("Year type not supported.");
         }

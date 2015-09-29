@@ -8,17 +8,21 @@ public class Dragon {
     public static final int START_LAY_EGGS_AGE = 3;
     public static final int STOP_LAY_EGGS_AGE = 5;
 
-    private static int instanceCounter = 0;
+    public static int instanceCounter = 0;
     private int id;
+    private String name;
     private int age;
+    private boolean layEggs;
     private boolean alive;
     private List<Egg> eggs;
     private List<Dragon> children;
 
-    public Dragon() {
+    public Dragon(String name) {
         instanceCounter++;
         this.setId(instanceCounter);
+        this.setName(name);
         this.setAge(0);
+        this.setLayEggs(false);
         this.setAlive(true);
         this.setEggs(new ArrayList<Egg>());
         this.setChildren(new ArrayList<Dragon>());
@@ -32,6 +36,14 @@ public class Dragon {
         this.id = id;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    private void setName(String name) {
+        this.name = name;
+    }
+    
     public int getAge() {
         return this.age;
     }
@@ -64,27 +76,31 @@ public class Dragon {
         this.alive = alive;
     }
 
-    public void layEgg() {
-        if (this.age >= START_LAY_EGGS_AGE || this.age < STOP_LAY_EGGS_AGE) {
-            this.getEggs().add(new Egg(this));
-        }
+    public boolean canLayEggs(){
+        return this.layEggs;
+    }
+    
+    public void setLayEggs(boolean layEggs){
+        this.layEggs = layEggs;
+    }
+    
+    public void layEgg(Egg egg) {
+        this.getEggs().add(egg);
     }
 
-    public void die() {
-        this.setAlive(false);
+    public void grow() {
+        if (this.getAge() < MAX_AGE) {
+            this.setAge(this.getAge() + 1);
+        }
+        
+        if (this.getAge() == MAX_AGE) {
+            this.setAlive(false);
+        }
     }
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append(String.format("Dragon_%s\n", this.getId()));
-        if(!this.getChildren().isEmpty()){
-            for (Dragon dragon : this.getChildren()) {
-                result.append(String.format("  Dragon_%s/Dragon_%s", this.getId(), dragon.getId()));
-            }
-            result.setLength(result.length() - 1);
-        }
-        
-        return result.toString();
+        return this.getName();
     }
+
 }

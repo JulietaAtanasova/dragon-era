@@ -1,9 +1,9 @@
 package dragons.years;
 
-public class Year {
+public class DragonYear {
     private int eggFactor;
     
-    public Year(int eggFactor){
+    public DragonYear(int eggFactor){
         this.setEggFactor(eggFactor);
     }
 
